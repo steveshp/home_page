@@ -11,8 +11,8 @@ const features = [
     title: "빠른 구축",
     description: "전문가와 함께 지정된 시간 내에 프로젝트를 완료합니다",
     highlights: ["신속한 개발 프로세스", "애자일 방법론 적용", "실시간 진행상황 공유"],
-    gradient: "from-[oklch(0.75_0.18_30)] to-[oklch(0.70_0.20_350)]",
-    iconBg: "bg-gradient-to-br from-[oklch(0.75_0.18_30)] to-[oklch(0.70_0.20_350)]"
+    gradient: "from-[oklch(0.65_0.25_120)] to-[oklch(0.55_0.30_140)]",
+    iconBg: "bg-gradient-to-br from-[oklch(0.65_0.25_120)] to-[oklch(0.55_0.30_140)]"
   },
   {
     icon: Code,
