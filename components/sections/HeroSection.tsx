@@ -6,8 +6,16 @@ import { useState, useEffect } from "react"
 
 export function HeroSection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [isMobile, setIsMobile] = useState(false)
   
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
     const handleMouseMove = (e: MouseEvent) => {
       const x = (e.clientX / window.innerWidth - 0.5) * 20
       const y = (e.clientY / window.innerHeight - 0.5) * 20
@@ -15,7 +23,10 @@ export function HeroSection() {
     }
     
     window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('resize', checkMobile)
+    }
   }, [])
 
   return (
@@ -88,11 +99,13 @@ export function HeroSection() {
           </div>
 
           {/* 오른쪽 3D 비주얼 - Creatfix 스타일 건축물 */}
-          <div className="flex-1 relative h-[500px] lg:h-[600px] animate-fade-in-up animation-delay-600">
+          <div className="flex-1 relative h-[400px] md:h-[500px] lg:h-[600px] animate-fade-in-up animation-delay-600">
             <div 
               className="relative w-full h-full preserve-3d"
               style={{ 
-                transform: `perspective(1000px) rotateY(${-mousePosition.x * 0.5}deg) rotateX(${mousePosition.y * 0.5}deg)` 
+                transform: isMobile 
+                  ? 'perspective(800px) rotateY(0deg) rotateX(0deg)'
+                  : `perspective(1000px) rotateY(${-mousePosition.x * 0.5}deg) rotateX(${mousePosition.y * 0.5}deg)` 
               }}
             >
               {/* 3D 건축물 구조 - 레이어드 패널 */}
@@ -100,17 +113,17 @@ export function HeroSection() {
                 {/* 중앙 타워 */}
                 <div className="relative">
                   {/* 메인 패널들 */}
-                  {[...Array(7)].map((_, i) => {
+                  {[...Array(isMobile ? 5 : 7)].map((_, i) => {
                     const scale = 1 - i * 0.08
-                    const zOffset = i * 40
+                    const zOffset = i * (isMobile ? 25 : 40)
                     const opacity = 0.9 - i * 0.1
                     return (
                       <div
                         key={`main-${i}`}
                         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
                         style={{
-                          width: `${200 * scale}px`,
-                          height: `${400 * scale}px`,
+                          width: `${(isMobile ? 140 : 200) * scale}px`,
+                          height: `${(isMobile ? 280 : 400) * scale}px`,
                           transform: `translateZ(${zOffset}px)`,
                           opacity,
                         }}
@@ -131,19 +144,19 @@ export function HeroSection() {
                   })}
                   
                   {/* 사이드 날개 패널들 - 왼쪽 */}
-                  {[...Array(5)].map((_, i) => {
+                  {[...Array(isMobile ? 3 : 5)].map((_, i) => {
                     const scale = 0.7 - i * 0.1
-                    const xOffset = -60 - i * 30
-                    const zOffset = i * 25
-                    const rotation = -15 - i * 5
+                    const xOffset = (isMobile ? -35 : -60) - i * (isMobile ? 20 : 30)
+                    const zOffset = i * (isMobile ? 15 : 25)
+                    const rotation = (isMobile ? -10 : -15) - i * (isMobile ? 3 : 5)
                     const opacity = 0.7 - i * 0.1
                     return (
                       <div
                         key={`left-${i}`}
                         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
                         style={{
-                          width: `${150 * scale}px`,
-                          height: `${300 * scale}px`,
+                          width: `${(isMobile ? 90 : 150) * scale}px`,
+                          height: `${(isMobile ? 180 : 300) * scale}px`,
                           transform: `translateX(${xOffset}px) translateZ(${zOffset}px) rotateY(${rotation}deg)`,
                           opacity,
                         }}
@@ -163,19 +176,19 @@ export function HeroSection() {
                   })}
                   
                   {/* 사이드 날개 패널들 - 오른쪽 */}
-                  {[...Array(5)].map((_, i) => {
+                  {[...Array(isMobile ? 3 : 5)].map((_, i) => {
                     const scale = 0.7 - i * 0.1
-                    const xOffset = 60 + i * 30
-                    const zOffset = i * 25
-                    const rotation = 15 + i * 5
+                    const xOffset = (isMobile ? 35 : 60) + i * (isMobile ? 20 : 30)
+                    const zOffset = i * (isMobile ? 15 : 25)
+                    const rotation = (isMobile ? 10 : 15) + i * (isMobile ? 3 : 5)
                     const opacity = 0.7 - i * 0.1
                     return (
                       <div
                         key={`right-${i}`}
                         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
                         style={{
-                          width: `${150 * scale}px`,
-                          height: `${300 * scale}px`,
+                          width: `${(isMobile ? 90 : 150) * scale}px`,
+                          height: `${(isMobile ? 180 : 300) * scale}px`,
                           transform: `translateX(${xOffset}px) translateZ(${zOffset}px) rotateY(${rotation}deg)`,
                           opacity,
                         }}
