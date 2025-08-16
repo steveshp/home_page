@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Code, Cloud, Brain, Zap, Shield, Users, ArrowRight, Check } from "lucide-react"
 import { useState } from "react"
+import Link from "next/link"
 
 const features = [
   {
@@ -135,17 +136,23 @@ export function FeaturesSection() {
             </p>
             <div className="flex gap-4 justify-center">
               <Button 
+                asChild
                 size="lg"
                 className="bg-white text-[oklch(0.55_0.25_235)] hover:bg-white/90 font-semibold px-8"
               >
-                무료 상담 신청
+                <Link href="#contact">
+                  프로젝트 문의신청
+                </Link>
               </Button>
               <Button 
+                asChild
                 size="lg"
                 variant="outline"
-                className="border-2 border-white text-white hover:bg-white/10 font-semibold px-8"
+                className="border-2 border-white text-white bg-white/10 hover:bg-white/20 font-semibold px-8"
               >
-                포트폴리오 보기
+                <Link href="#projects">
+                  포트폴리오 보기
+                </Link>
               </Button>
             </div>
           </div>

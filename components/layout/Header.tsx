@@ -46,12 +46,14 @@ export function Header() {
           {/* 로고 */}
           <Link 
             href="/" 
-            className="flex items-center space-x-2"
+            className="flex items-center gap-3"
             onClick={closeMobileMenu}
           >
-            <div className="w-10 h-10 gradient-primary rounded-lg flex items-center justify-center shadow-lg">
-              <span className="text-white font-bold text-xl">SV</span>
-            </div>
+            <img 
+              src="/logo.png" 
+              alt="SV" 
+              className="h-10 w-auto"
+            />
             <span className={`text-xl font-bold transition-colors ${
               isScrolled ? 'text-foreground' : 'text-foreground drop-shadow-lg'
             }`}>

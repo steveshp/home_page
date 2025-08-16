@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" width="200" height="100">
+  <!-- S 부분 - 진한 회색 -->
+  <path d="M 30 25 Q 50 15, 70 25 Q 80 30, 70 40 L 50 50 Q 40 55, 50 60 Q 60 65, 80 55" 
+        fill="none" 
+        stroke="#4a5568" 
+        stroke-width="8" 
+        stroke-linecap="round"/>
+  
+  <!-- V 부분 - 녹색 체크 마크 스타일 -->
+  <path d="M 90 30 L 110 65 L 145 20" 
+        fill="none" 
+        stroke="#68d391" 
+        stroke-width="10" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+  
+  <!-- 녹색 브러시 효과 -->
+  <path d="M 140 22 L 148 15 L 150 18 L 145 25 Z" 
+        fill="#68d391" 
+        opacity="0.8"/>
+  <path d="M 145 18 L 155 10 L 157 13 L 150 22 Z" 
+        fill="#68d391" 
+        opacity="0.6"/>
+  <path d="M 150 15 L 162 5 L 164 8 L 155 18 Z" 
+        fill="#68d391" 
+        opacity="0.4"/>
+</svg>

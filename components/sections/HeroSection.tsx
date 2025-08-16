@@ -60,8 +60,8 @@ export function HeroSection() {
             </h1>
             
             <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl animate-fade-in-up animation-delay-200">
-              최첨단 인공지능 기술과 창의적인 솔루션으로 귀사의 브랜드 가치를 높이고 
-              비즈니스 성장을 가속화합니다.
+              최첨단 인공지능 기술과 창의적인 개발 솔루션으로 귀사의 브랜드  
+              가치를 높이고 비즈니스 성장을 가속화합니다.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in-up animation-delay-400">
