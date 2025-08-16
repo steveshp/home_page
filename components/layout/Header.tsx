@@ -67,17 +67,18 @@ export function Header() {
               <NavigationMenuList>
                 {navItems.map((item) => (
                   <NavigationMenuItem key={item.href}>
-                    <Link href={item.href} legacyBehavior passHref>
-                      <NavigationMenuLink 
-                        className={`${navigationMenuTriggerStyle()} font-medium transition-all ${
-                          isScrolled 
-                            ? 'text-muted-foreground hover:text-primary' 
-                            : 'text-foreground hover:bg-white/10 drop-shadow-lg'
-                        }`}
-                      >
+                    <NavigationMenuLink 
+                      asChild
+                      className={`${navigationMenuTriggerStyle()} font-medium transition-all ${
+                        isScrolled 
+                          ? 'text-muted-foreground hover:text-primary' 
+                          : 'text-foreground hover:bg-white/10 drop-shadow-lg'
+                      }`}
+                    >
+                      <Link href={item.href}>
                         {item.label}
-                      </NavigationMenuLink>
-                    </Link>
+                      </Link>
+                    </NavigationMenuLink>
                   </NavigationMenuItem>
                 ))}
               </NavigationMenuList>
