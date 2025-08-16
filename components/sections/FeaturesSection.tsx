@@ -1,158 +1,154 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+"use client"
+
 import { Button } from "@/components/ui/button"
-import { Code, Cloud, Brain, Zap, Shield, Users } from "lucide-react"
+import { Code, Cloud, Brain, Zap, Shield, Users, ArrowRight, Check } from "lucide-react"
+import { useState } from "react"
 
 const features = [
   {
-    icon: Code,
-    title: "맞춤형 소프트웨어 개발",
-    description: "귀사의 비즈니스 요구사항에 완벽하게 맞춘 소프트웨어 솔루션을 개발합니다. 웹, 모바일, 데스크톱 애플리케이션까지 모든 플랫폼을 지원합니다.",
-    highlights: ["웹/모바일 앱 개발", "엔터프라이즈 솔루션", "API 통합"],
-    color: "blue"
+    icon: Zap,
+    title: "빠른 구축",
+    description: "전문가와 함께 지정된 시간 내에 프로젝트를 완료합니다",
+    highlights: ["신속한 개발 프로세스", "애자일 방법론 적용", "실시간 진행상황 공유"],
+    gradient: "from-[oklch(0.75_0.18_30)] to-[oklch(0.70_0.20_350)]",
+    iconBg: "bg-gradient-to-br from-[oklch(0.75_0.18_30)] to-[oklch(0.70_0.20_350)]"
   },
   {
-    icon: Cloud,
-    title: "클라우드 네이티브 솔루션",
-    description: "확장 가능하고 안정적인 클라우드 인프라를 구축합니다. AWS, Azure, GCP 등 주요 클라우드 플랫폼에서 최적화된 서비스를 제공합니다.",
-    highlights: ["클라우드 마이그레이션", "컨테이너화 & 오케스트레이션", "DevOps 자동화"],
-    color: "cyan"
+    icon: Code,
+    title: "성숙한 컨셉",
+    description: "각 공간의 콘텐츠와 가구 배치까지 준비된 설계",
+    highlights: ["맞춤형 솔루션 설계", "확장 가능한 아키텍처", "미래 지향적 기술 스택"],
+    gradient: "from-[oklch(0.55_0.25_235)] to-[oklch(0.60_0.20_280)]",
+    iconBg: "bg-gradient-to-br from-[oklch(0.55_0.25_235)] to-[oklch(0.60_0.20_280)]"
   },
   {
     icon: Brain,
-    title: "AI/ML 통합 서비스",
-    description: "최신 인공지능과 머신러닝 기술을 활용하여 비즈니스 프로세스를 자동화하고 인사이트를 발견합니다.",
-    highlights: ["예측 분석", "자연어 처리", "컴퓨터 비전"],
-    color: "purple"
-  }
-]
-
-const additionalServices = [
-  {
-    icon: Zap,
-    title: "성능 최적화",
-    description: "애플리케이션 속도와 효율성을 극대화",
-  },
-  {
-    icon: Shield,
-    title: "보안 강화",
-    description: "엔터프라이즈급 보안 솔루션 구현",
-  },
-  {
-    icon: Users,
-    title: "기술 컨설팅",
-    description: "디지털 전환을 위한 전략적 조언",
+    title: "미래형 빌딩",
+    description: "고객을 위해 준비한 미래지향적이고 현대적인 모델",
+    highlights: ["AI/ML 통합", "자동화 프로세스", "스마트 분석 도구"],
+    gradient: "from-[oklch(0.70_0.15_270)] to-[oklch(0.80_0.12_320)]",
+    iconBg: "bg-gradient-to-br from-[oklch(0.70_0.15_270)] to-[oklch(0.80_0.12_320)]"
   }
 ]
 
 export function FeaturesSection() {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+
   return (
-    <section id="services" className="py-20 lg:py-32 bg-gray-50">
-      <div className="container mx-auto px-4">
+    <section id="services" className="py-20 lg:py-32 relative overflow-hidden">
+      {/* 배경 그라데이션 */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-[oklch(0.98_0.01_250)] to-background" />
+      
+      {/* 장식용 도형들 */}
+      <div className="absolute top-20 left-10 w-64 h-64 gradient-primary rounded-full opacity-10 blur-3xl" />
+      <div className="absolute bottom-20 right-10 w-96 h-96 gradient-secondary rounded-full opacity-10 blur-3xl" />
+      
+      <div className="container mx-auto px-4 relative z-10">
         {/* 섹션 헤더 */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            우리가 제공하는 서비스
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+            우리 회사가 제공하는
+            <span className="block text-gradient mt-2">특별한 기능들</span>
           </h2>
-          <p className="text-lg text-gray-600">
-            최고의 기술력과 경험을 바탕으로 고객의 성공을 위한 
-            토탈 IT 솔루션을 제공합니다
+          <p className="text-lg text-muted-foreground">
+            우리는 항상 서비스를 이용하는 고객의 편안함을 제공하기 위해 최선을 다합니다
           </p>
         </div>
 
-        {/* 메인 기능 카드 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        {/* 메인 기능 카드 - Creatfix 스타일 */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
           {features.map((feature, index) => {
             const Icon = feature.icon
             return (
-              <Card 
+              <div
                 key={index}
-                className="group relative overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
+                className="relative group"
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
               >
-                <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-${feature.color}-500 to-${feature.color}-600`}></div>
+                {/* 카드 배경 글로우 효과 */}
+                <div 
+                  className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500 rounded-3xl`}
+                />
                 
-                <CardHeader>
-                  <div className={`w-14 h-14 rounded-lg bg-gradient-to-br from-${feature.color}-500 to-${feature.color}-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                    <Icon className="w-8 h-8 text-white" />
+                {/* 메인 카드 */}
+                <div className="relative bg-card/50 backdrop-blur-sm border border-border/50 rounded-3xl p-8 h-full hover-lift glass">
+                  {/* 아이콘 */}
+                  <div className="mb-6">
+                    <div className={`w-16 h-16 ${feature.iconBg} rounded-2xl flex items-center justify-center shadow-lg transform transition-transform group-hover:scale-110 group-hover:rotate-3`}>
+                      <Icon className="w-8 h-8 text-white" />
+                    </div>
                   </div>
-                  <CardTitle className="text-xl font-bold text-gray-900">
+                  
+                  {/* 제목과 설명 */}
+                  <h3 className="text-2xl font-bold mb-3 text-foreground">
                     {feature.title}
-                  </CardTitle>
-                  <CardDescription className="text-gray-600 mt-2">
+                  </h3>
+                  <p className="text-muted-foreground mb-6 leading-relaxed">
                     {feature.description}
-                  </CardDescription>
-                </CardHeader>
-                
-                <CardContent>
-                  <ul className="space-y-2">
+                  </p>
+                  
+                  {/* 하이라이트 리스트 */}
+                  <ul className="space-y-3 mb-6">
                     {feature.highlights.map((highlight, idx) => (
-                      <li key={idx} className="flex items-start">
-                        <svg 
-                          className={`w-5 h-5 text-${feature.color}-500 mr-2 mt-0.5 flex-shrink-0`}
-                          fill="currentColor" 
-                          viewBox="0 0 20 20"
-                        >
-                          <path 
-                            fillRule="evenodd" 
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" 
-                            clipRule="evenodd" 
-                          />
-                        </svg>
-                        <span className="text-gray-700 text-sm">{highlight}</span>
+                      <li key={idx} className="flex items-start gap-3">
+                        <div className={`w-5 h-5 rounded-full ${feature.iconBg} flex items-center justify-center flex-shrink-0 mt-0.5`}>
+                          <Check className="w-3 h-3 text-white" />
+                        </div>
+                        <span className="text-sm text-muted-foreground">
+                          {highlight}
+                        </span>
                       </li>
                     ))}
                   </ul>
                   
+                  {/* 더 보기 버튼 */}
                   <Button 
-                    className="w-full mt-6"
-                    variant="outline"
+                    variant="ghost"
+                    className="group/btn p-0 h-auto font-semibold hover:bg-transparent"
                   >
-                    자세히 보기
+                    <span className={`bg-gradient-to-r ${feature.gradient} bg-clip-text text-transparent`}>
+                      더 알아보기
+                    </span>
+                    <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover/btn:translate-x-1" />
                   </Button>
-                </CardContent>
-              </Card>
-            )
-          })}
-        </div>
-
-        {/* 추가 서비스 */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {additionalServices.map((service, index) => {
-            const Icon = service.icon
-            return (
-              <div 
-                key={index}
-                className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow flex items-start space-x-4"
-              >
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center flex-shrink-0">
-                  <Icon className="w-6 h-6 text-gray-700" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-1">
-                    {service.title}
-                  </h4>
-                  <p className="text-sm text-gray-600">
-                    {service.description}
-                  </p>
                 </div>
               </div>
             )
           })}
         </div>
 
-        {/* CTA */}
-        <div className="text-center mt-12">
-          <Button 
-            size="lg"
-            className="bg-blue-600 hover:bg-blue-700"
-          >
-            모든 서비스 보기
-          </Button>
+        {/* 하단 CTA 섹션 */}
+        <div className="text-center py-12 px-8 rounded-3xl bg-gradient-to-r from-[oklch(0.55_0.25_235)] to-[oklch(0.65_0.20_280)] relative overflow-hidden">
+          {/* 장식용 패턴 */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-0 left-0 w-40 h-40 border-8 border-white/20 rounded-full -translate-x-1/2 -translate-y-1/2" />
+            <div className="absolute bottom-0 right-0 w-60 h-60 border-8 border-white/20 rounded-full translate-x-1/3 translate-y-1/3" />
+          </div>
+          
+          <div className="relative z-10">
+            <h3 className="text-3xl font-bold text-white mb-4">
+              프로젝트를 시작할 준비가 되셨나요?
+            </h3>
+            <p className="text-white/90 mb-8 max-w-2xl mx-auto">
+              전문가 팀과 함께 귀사의 비즈니스를 한 단계 더 성장시켜보세요
+            </p>
+            <div className="flex gap-4 justify-center">
+              <Button 
+                size="lg"
+                className="bg-white text-[oklch(0.55_0.25_235)] hover:bg-white/90 font-semibold px-8"
+              >
+                무료 상담 신청
+              </Button>
+              <Button 
+                size="lg"
+                variant="outline"
+                className="border-2 border-white text-white hover:bg-white/10 font-semibold px-8"
+              >
+                포트폴리오 보기
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </section>

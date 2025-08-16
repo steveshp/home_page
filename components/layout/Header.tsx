@@ -38,7 +38,7 @@ export function Header() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
           ? 'bg-white/95 backdrop-blur-md shadow-md' 
-          : 'bg-transparent'
+          : 'bg-white/10 backdrop-blur-sm border-b border-white/20'
       }`}
     >
       <div className="container mx-auto px-4">
@@ -49,10 +49,12 @@ export function Header() {
             className="flex items-center space-x-2"
             onClick={closeMobileMenu}
           >
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10 gradient-primary rounded-lg flex items-center justify-center shadow-lg">
               <span className="text-white font-bold text-xl">SV</span>
             </div>
-            <span className={`text-xl font-bold ${isScrolled ? 'text-gray-900' : 'text-white'}`}>
+            <span className={`text-xl font-bold transition-colors ${
+              isScrolled ? 'text-foreground' : 'text-foreground drop-shadow-lg'
+            }`}>
               에스브이소프트
             </span>
           </Link>
@@ -65,10 +67,10 @@ export function Header() {
                   <NavigationMenuItem key={item.href}>
                     <Link href={item.href} legacyBehavior passHref>
                       <NavigationMenuLink 
-                        className={`${navigationMenuTriggerStyle()} ${
+                        className={`${navigationMenuTriggerStyle()} font-medium transition-all ${
                           isScrolled 
-                            ? 'text-gray-700 hover:text-blue-600' 
-                            : 'text-white hover:bg-white/10'
+                            ? 'text-muted-foreground hover:text-primary' 
+                            : 'text-foreground hover:bg-white/10 drop-shadow-lg'
                         }`}
                       >
                         {item.label}
@@ -80,23 +82,14 @@ export function Header() {
             </NavigationMenu>
           </nav>
 
-          {/* CTA 버튼 */}
-          <div className="hidden lg:block">
-            <Button 
-              className="bg-blue-600 hover:bg-blue-700 text-white"
-              size="lg"
-            >
-              무료 상담하기
-            </Button>
-          </div>
 
           {/* 모바일 메뉴 버튼 */}
           <button
             onClick={toggleMobileMenu}
-            className={`lg:hidden p-2 rounded-lg transition-colors ${
+            className={`lg:hidden p-2 rounded-lg transition-all ${
               isScrolled 
-                ? 'text-gray-700 hover:bg-gray-100' 
-                : 'text-white hover:bg-white/10'
+                ? 'text-muted-foreground hover:bg-muted' 
+                : 'text-foreground hover:bg-white/10 drop-shadow-lg'
             }`}
             aria-label="메뉴 토글"
           >
@@ -106,27 +99,19 @@ export function Header() {
 
         {/* 모바일 메뉴 */}
         {isMobileMenuOpen && (
-          <nav className="lg:hidden py-4 border-t border-gray-200">
+          <nav className="lg:hidden py-4 border-t border-border/50 glass rounded-b-2xl">
             <ul className="space-y-2">
               {navItems.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="block px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
+                    className="block px-4 py-2 text-foreground hover:bg-muted rounded-lg transition-colors font-medium"
                     onClick={closeMobileMenu}
                   >
                     {item.label}
                   </Link>
                 </li>
               ))}
-              <li className="pt-2">
-                <Button 
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                  size="lg"
-                >
-                  무료 상담하기
-                </Button>
-              </li>
             </ul>
           </nav>
         )}
