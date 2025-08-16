@@ -120,3 +120,7 @@ import { useAppStore } from "@/store/useAppStore"
 - 구체적인 변경 내용 2
 - 변경 이유 및 목적
 ```
+
+## Task Master AI Instructions
+**Import Task Master's development workflow commands and guidelines, treat as if import is in the main CLAUDE.md file.**
+@./.taskmaster/CLAUDE.md

@@ -1,0 +1,148 @@
+{
+  "models": {
+    "current": {
+      "name": "Claude 3 Opus",
+      "version": "4.1",
+      "provider": "Anthropic",
+      "capabilities": [
+        "코드 생성",
+        "버그 수정",
+        "아키텍처 설계",
+        "문서 작성",
+        "테스트 생성",
+        "코드 리뷰"
+      ]
+    },
+    "performance": {
+      "responseTime": {
+        "average": 1200,
+        "min": 500,
+        "max": 3000,
+        "unit": "ms"
+      },
+      "accuracy": {
+        "codeGeneration": 95,
+        "bugFixes": 92,
+        "documentation": 97,
+        "analysis": 94,
+        "unit": "percentage"
+      },
+      "efficiency": {
+        "tokenUsage": {
+          "input": 0,
+          "output": 0,
+          "total": 0
+        },
+        "costPerTask": 0,
+        "completionRate": 100
+      }
+    },
+    "optimization": {
+      "contextWindow": 200000,
+      "maxOutputTokens": 8000,
+      "temperature": {
+        "default": 0.7,
+        "code": 0.3,
+        "creative": 0.9,
+        "analysis": 0.5
+      },
+      "strategies": [
+        "컨텍스트 재사용",
+        "프롬프트 최적화",
+        "병렬 처리",
+        "결과 캐싱"
+      ]
+    },
+    "taskProfiles": {
+      "simple": {
+        "description": "간단한 작업 (버그 수정, 작은 기능)",
+        "maxTokens": 2000,
+        "temperature": 0.3,
+        "estimatedTime": "1-5분"
+      },
+      "moderate": {
+        "description": "중간 복잡도 작업 (기능 구현, 리팩토링)",
+        "maxTokens": 4000,
+        "temperature": 0.5,
+        "estimatedTime": "5-15분"
+      },
+      "complex": {
+        "description": "복잡한 작업 (아키텍처 설계, 대규모 리팩토링)",
+        "maxTokens": 8000,
+        "temperature": 0.7,
+        "estimatedTime": "15-30분"
+      }
+    },
+    "benchmarks": {
+      "lastUpdated": "2025-01-16",
+      "tasks": {
+        "codeGeneration": {
+          "score": 95,
+          "averageTime": 800,
+          "successRate": 98
+        },
+        "bugFixing": {
+          "score": 92,
+          "averageTime": 600,
+          "successRate": 95
+        },
+        "documentation": {
+          "score": 97,
+          "averageTime": 400,
+          "successRate": 99
+        },
+        "analysis": {
+          "score": 94,
+          "averageTime": 1200,
+          "successRate": 96
+        }
+      }
+    },
+    "recommendations": {
+      "codeGeneration": {
+        "model": "current",
+        "settings": {
+          "temperature": 0.3,
+          "maxTokens": 4000
+        },
+        "tips": [
+          "명확한 요구사항 제공",
+          "예제 코드 포함",
+          "제약사항 명시"
+        ]
+      },
+      "debugging": {
+        "model": "current",
+        "settings": {
+          "temperature": 0.2,
+          "maxTokens": 2000
+        },
+        "tips": [
+          "오류 메시지 전체 제공",
+          "코드 컨텍스트 포함",
+          "재현 단계 설명"
+        ]
+      },
+      "architecture": {
+        "model": "current",
+        "settings": {
+          "temperature": 0.7,
+          "maxTokens": 8000
+        },
+        "tips": [
+          "비즈니스 요구사항 명시",
+          "기술 제약사항 설명",
+          "확장성 요구사항 포함"
+        ]
+      }
+    }
+  },
+  "statistics": {
+    "totalTasks": 0,
+    "successfulTasks": 0,
+    "failedTasks": 0,
+    "averageCompletionTime": 0,
+    "totalTokensUsed": 0,
+    "mostCommonTaskTypes": []
+  }
+}
