@@ -58,19 +58,19 @@ export function HeroSection() {
       </div>
 
       {/* 콘텐츠 */}
-      <div className="relative z-10 container mx-auto px-4 py-32">
-        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+      <div className="relative z-10 container mx-auto px-4 py-20 md:py-32">
+        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-8 md:gap-12 lg:gap-16">
           {/* 왼쪽 텍스트 콘텐츠 */}
           <div className="flex-1 text-center lg:text-left">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in-up">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 animate-fade-in-up">
               <span className="text-foreground">Boosts The</span>
-              <span className="block text-gradient text-6xl md:text-7xl lg:text-8xl mt-2">
+              <span className="block text-gradient text-5xl sm:text-6xl md:text-7xl lg:text-8xl mt-2">
                 Credibility
               </span>
               <span className="text-foreground">of Your Brand</span>
             </h1>
             
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl animate-fade-in-up animation-delay-200">
+            <p className="text-lg md:text-xl text-muted-foreground mb-6 md:mb-8 max-w-xl animate-fade-in-up animation-delay-200">
               최첨단 인공지능 기술과 창의적인 개발 솔루션으로 귀사의 브랜드  
               가치를 높이고 비즈니스 성장을 가속화합니다.
             </p>
@@ -99,7 +99,7 @@ export function HeroSection() {
           </div>
 
           {/* 오른쪽 3D 비주얼 - Creatfix 스타일 건축물 */}
-          <div className="flex-1 relative h-[400px] md:h-[500px] lg:h-[600px] animate-fade-in-up animation-delay-600">
+          <div className="flex-1 relative h-[300px] sm:h-[350px] md:h-[450px] lg:h-[600px] animate-fade-in-up animation-delay-600 mt-8 md:mt-0">
             <div 
               className="relative w-full h-full preserve-3d"
               style={{ 
@@ -113,17 +113,17 @@ export function HeroSection() {
                 {/* 중앙 타워 */}
                 <div className="relative">
                   {/* 메인 패널들 */}
-                  {[...Array(isMobile ? 5 : 7)].map((_, i) => {
+                  {[...Array(isMobile ? 4 : 7)].map((_, i) => {
                     const scale = 1 - i * 0.08
-                    const zOffset = i * (isMobile ? 25 : 40)
+                    const zOffset = i * (isMobile ? 20 : 40)
                     const opacity = 0.9 - i * 0.1
                     return (
                       <div
                         key={`main-${i}`}
                         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
                         style={{
-                          width: `${(isMobile ? 140 : 200) * scale}px`,
-                          height: `${(isMobile ? 280 : 400) * scale}px`,
+                          width: `${(isMobile ? 120 : 200) * scale}px`,
+                          height: `${(isMobile ? 240 : 400) * scale}px`,
                           transform: `translateZ(${zOffset}px)`,
                           opacity,
                         }}
@@ -144,19 +144,19 @@ export function HeroSection() {
                   })}
                   
                   {/* 사이드 날개 패널들 - 왼쪽 */}
-                  {[...Array(isMobile ? 3 : 5)].map((_, i) => {
+                  {[...Array(isMobile ? 2 : 5)].map((_, i) => {
                     const scale = 0.7 - i * 0.1
-                    const xOffset = (isMobile ? -35 : -60) - i * (isMobile ? 20 : 30)
-                    const zOffset = i * (isMobile ? 15 : 25)
-                    const rotation = (isMobile ? -10 : -15) - i * (isMobile ? 3 : 5)
+                    const xOffset = (isMobile ? -30 : -60) - i * (isMobile ? 15 : 30)
+                    const zOffset = i * (isMobile ? 10 : 25)
+                    const rotation = (isMobile ? -8 : -15) - i * (isMobile ? 2 : 5)
                     const opacity = 0.7 - i * 0.1
                     return (
                       <div
                         key={`left-${i}`}
                         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
                         style={{
-                          width: `${(isMobile ? 90 : 150) * scale}px`,
-                          height: `${(isMobile ? 180 : 300) * scale}px`,
+                          width: `${(isMobile ? 80 : 150) * scale}px`,
+                          height: `${(isMobile ? 160 : 300) * scale}px`,
                           transform: `translateX(${xOffset}px) translateZ(${zOffset}px) rotateY(${rotation}deg)`,
                           opacity,
                         }}
@@ -176,19 +176,19 @@ export function HeroSection() {
                   })}
                   
                   {/* 사이드 날개 패널들 - 오른쪽 */}
-                  {[...Array(isMobile ? 3 : 5)].map((_, i) => {
+                  {[...Array(isMobile ? 2 : 5)].map((_, i) => {
                     const scale = 0.7 - i * 0.1
-                    const xOffset = (isMobile ? 35 : 60) + i * (isMobile ? 20 : 30)
-                    const zOffset = i * (isMobile ? 15 : 25)
-                    const rotation = (isMobile ? 10 : 15) + i * (isMobile ? 3 : 5)
+                    const xOffset = (isMobile ? 30 : 60) + i * (isMobile ? 15 : 30)
+                    const zOffset = i * (isMobile ? 10 : 25)
+                    const rotation = (isMobile ? 8 : 15) + i * (isMobile ? 2 : 5)
                     const opacity = 0.7 - i * 0.1
                     return (
                       <div
                         key={`right-${i}`}
                         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
                         style={{
-                          width: `${(isMobile ? 90 : 150) * scale}px`,
-                          height: `${(isMobile ? 180 : 300) * scale}px`,
+                          width: `${(isMobile ? 80 : 150) * scale}px`,
+                          height: `${(isMobile ? 160 : 300) * scale}px`,
                           transform: `translateX(${xOffset}px) translateZ(${zOffset}px) rotateY(${rotation}deg)`,
                           opacity,
                         }}
