@@ -58,7 +58,7 @@ export function HeroSection() {
       </div>
 
       {/* 콘텐츠 */}
-      <div className="relative z-10 container mx-auto px-4 py-20 md:py-32">
+      <div className="relative z-10 container mx-auto px-4 pt-24 pb-20 md:pt-36 md:pb-32">
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-8 md:gap-12 lg:gap-16">
           {/* 왼쪽 텍스트 콘텐츠 */}
           <div className="flex-1 text-center lg:text-left">
