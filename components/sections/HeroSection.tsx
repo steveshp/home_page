@@ -99,7 +99,7 @@ export function HeroSection() {
           </div>
 
           {/* 오른쪽 3D 비주얼 - Creatfix 스타일 건축물 */}
-          <div className="flex-1 relative h-[280px] sm:h-[340px] md:h-[450px] lg:h-[600px] animate-fade-in-up animation-delay-600 mt-8 sm:mt-0">
+          <div className="flex-1 relative h-[280px] sm:h-[340px] md:h-[450px] lg:h-[600px] animate-fade-in-up animation-delay-600 -mt-8 sm:-mt-12 lg:-mt-0">
             <div
               className={`relative w-full h-full preserve-3d ${
                 isMobile ? 'animate-floating-3d' : 'animate-rotate-3d-subtle'
