@@ -76,8 +76,8 @@ export function ContactSection() {
                       <div>
                         <h4 className="font-semibold text-gray-900 mb-1">이메일</h4>
                         <p className="text-gray-600">
-                          일반문의: info@svsoft.co.kr<br />
-                          기술지원: support@svsoft.co.kr
+                          일반문의: info@faithful.co.kr<br />
+                          기술지원: support@faithful.co.kr
                         </p>
                       </div>
                     </div>

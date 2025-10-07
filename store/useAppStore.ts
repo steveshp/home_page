@@ -38,7 +38,7 @@ export const useAppStore = create<AppState>()(
       })),
     }),
     {
-      name: 'sv-soft-storage', // 로컬 스토리지 키
+      name: 'faithful-storage', // 로컬 스토리지 키
       partialize: (state) => ({ theme: state.theme }), // 테마만 저장
     }
   )

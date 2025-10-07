@@ -1,6 +1,6 @@
-# SV Soft Corporate Website
+# Faithful Corporate Website
 
-모던한 디자인과 3D 비주얼을 특징으로 하는 SV Soft(에스브이소프트) 기업 웹사이트입니다.
+모던한 디자인과 3D 비주얼을 특징으로 하는 Faithful 기업 웹사이트입니다.
 
 ## 🎨 주요 특징
 

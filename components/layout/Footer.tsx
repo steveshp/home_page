@@ -66,11 +66,11 @@ export function Footer() {
                 <span className="text-white font-bold text-xl">SV</span>
               </div>
               <span className="text-xl font-bold text-white">
-                에스브이소프트
+                페이스펄
               </span>
             </div>
             <p className="text-sm mb-4">
-              혁신적인 소프트웨어 솔루션으로 
+              혁신적인 AI 기술과 창의적인 개발 솔루션으로
               비즈니스의 디지털 전환을 선도합니다.
             </p>
             
@@ -122,7 +122,7 @@ export function Footer() {
                 뉴스레터 구독
               </h3>
               <p className="text-sm">
-                최신 기술 트렌드와 에스브이소프트의 소식을 받아보세요.
+                최신 기술 트렌드와 페이스펄의 소식을 받아보세요.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
@@ -144,7 +144,7 @@ export function Footer() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center text-sm">
             <div className="mb-4 md:mb-0">
-              © 2024 에스브이소프트. All rights reserved.
+              © 2024 페이스펄. All rights reserved.
             </div>
             <div className="flex space-x-6">
               <span>사업자등록번호: 123-45-67890</span>

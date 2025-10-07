@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SV Soft - 에스브이소프트",
+  title: "페이스펄 - Faceful",
   description: "최첨단 인공지능 기술과 창의적인 개발 솔루션으로 귀사의 브랜드 가치를 높이고 비즈니스 성장을 가속화합니다.",
 };
 

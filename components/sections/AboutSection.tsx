@@ -47,13 +47,13 @@ export function AboutSection() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-                에스브이소프트는
+                페이스펄은
                 <span className="block mt-2 text-blue-600">
                   기술로 미래를 만듭니다
                 </span>
               </h2>
               <p className="text-lg text-gray-600 mb-6">
-                2014년 설립 이래, 에스브이소프트는 혁신적인 소프트웨어 솔루션으로 
+                2014년 설립 이래, 페이스펄은 혁신적인 AI 기술과 소프트웨어 솔루션으로
                 수많은 기업의 디지털 전환을 성공적으로 이끌어왔습니다.
               </p>
               <p className="text-lg text-gray-600 mb-8">
@@ -141,12 +141,12 @@ export function AboutSection() {
                   CEO 메시지
                 </h3>
                 <blockquote className="text-gray-600 italic mb-6">
-                  "에스브이소프트는 고객의 비즈니스 성공을 위해 
-                  최선을 다하는 기술 파트너입니다. 
-                  우리는 단순히 소프트웨어를 개발하는 것이 아니라, 
+                  "페이스펄은 고객의 비즈니스 성공을 위해
+                  최선을 다하는 기술 파트너입니다.
+                  우리는 단순히 소프트웨어를 개발하는 것이 아니라,
                   고객의 비전을 현실로 만드는 솔루션을 제공합니다.
                   <br /><br />
-                  앞으로도 끊임없는 혁신과 도전으로 
+                  앞으로도 끊임없는 혁신과 도전으로
                   고객과 함께 성장하는 기업이 되겠습니다."
                 </blockquote>
                 <div>

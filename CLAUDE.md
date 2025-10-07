@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Next.js 15 corporate website for SV Soft (에스브이소프트), featuring a modern design with 3D visuals, glassmorphism effects, and gradient color schemes.
+This is a Next.js 15 corporate website for Faithful, featuring a modern design with 3D visuals, glassmorphism effects, and gradient color schemes.
 
 ## Development Commands
 
@@ -37,7 +37,7 @@ npx shadcn@latest add [component-name]  # Add new shadcn/ui component
 #### State Management (Zustand)
 The app uses a centralized store (`/store/useAppStore.ts`) with:
 - **UI State**: `isMobileMenuOpen`, `isScrolled`
-- **Theme**: `theme` (light/dark) - persisted to localStorage as 'sv-soft-storage'
+- **Theme**: `theme` (light/dark) - persisted to localStorage as 'faithful-storage'
 - **Actions**: `toggleMobileMenu()`, `closeMobileMenu()`, `setScrolled()`, `toggleTheme()`
 
 #### Routing & Navigation
@@ -78,7 +78,7 @@ Additional gradient colors (`--gradient-1/2/3`) and chart colors (`--chart-1` th
 
 ### Build & Deployment
 - Static assets served from `/public` directory
-- Logo assets: `logo.png`, `sv-logo.svg`
+- Logo assets: `logo.png`, `faithful-logo.svg`
 - No special Next.js config required (default settings)
 
 ## Implementation Patterns

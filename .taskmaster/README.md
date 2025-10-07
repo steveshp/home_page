@@ -19,7 +19,7 @@ Task Master가 초기화되었습니다! 다음 명령어를 사용하세요:
 - `/tm analyze` - 프로젝트 분석
 
 ## 📊 현재 상태
-- 프로젝트: SV Soft Homepage
+- 프로젝트: Faithful Homepage
 - 타입: Next.js Corporate Website
 - 단계: Analysis
 - 초기화: 2025-01-16

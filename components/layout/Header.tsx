@@ -49,15 +49,15 @@ export function Header() {
             className="flex items-center gap-3"
             onClick={closeMobileMenu}
           >
-            <img 
-              src="/logo.png" 
-              alt="SV" 
+            <img
+              src="/logo.png"
+              alt="Faithful"
               className="h-10 w-auto"
             />
             <span className={`text-xl font-bold transition-colors ${
               isScrolled ? 'text-foreground' : 'text-foreground drop-shadow-lg'
             }`}>
-              에스브이소프트
+              페이스펄
             </span>
           </Link>
 
