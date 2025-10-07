@@ -59,9 +59,9 @@ export function HeroSection() {
 
       {/* 콘텐츠 */}
       <div className="relative z-10 container mx-auto px-4 pt-24 pb-20 md:pt-36 md:pb-32">
-        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-8 md:gap-12 lg:gap-16">
+        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-12 md:gap-16 lg:gap-20">
           {/* 왼쪽 텍스트 콘텐츠 */}
-          <div className="flex-1 text-center lg:text-left">
+          <div className="flex-1 text-center lg:text-left mb-8 sm:mb-12 lg:mb-0">
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 animate-fade-in-up">
               <span className="text-foreground">Boosts The</span>
               <span className="block text-gradient text-5xl sm:text-6xl md:text-7xl lg:text-8xl mt-2">
@@ -69,27 +69,27 @@ export function HeroSection() {
               </span>
               <span className="text-foreground">of Your Brand</span>
             </h1>
-            
-            <p className="text-lg md:text-xl text-muted-foreground mb-6 md:mb-8 max-w-xl animate-fade-in-up animation-delay-200">
-              최첨단 인공지능 기술과 창의적인 개발 솔루션으로 귀사의 브랜드  
+
+            <p className="text-lg md:text-xl text-muted-foreground mb-6 md:mb-8 max-w-xl mx-auto lg:mx-0 animate-fade-in-up animation-delay-200">
+              최첨단 인공지능 기술과 창의적인 개발 솔루션으로 귀사의 브랜드
               가치를 높이고 비즈니스 성장을 가속화합니다.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in-up animation-delay-400">
-              <Button 
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in-up animation-delay-400 mb-8 sm:mb-0">
+              <Button
                 asChild
                 size="lg"
-                className="gradient-primary text-white hover:opacity-90 font-semibold px-8 py-6 text-lg shadow-lg hover-lift"
+                className="gradient-primary text-white hover:opacity-90 font-semibold px-8 py-6 text-lg shadow-lg hover-lift min-h-[56px]"
               >
                 <Link href="#contact">
                   프로젝트 문의하기
                 </Link>
               </Button>
-              <Button 
+              <Button
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-2 font-semibold px-8 py-6 text-lg hover-lift"
+                className="border-2 font-semibold px-8 py-6 text-lg hover-lift min-h-[56px]"
               >
                 <Link href="#services">
                   더 알아보기
@@ -99,7 +99,7 @@ export function HeroSection() {
           </div>
 
           {/* 오른쪽 3D 비주얼 - Creatfix 스타일 건축물 */}
-          <div className="flex-1 relative h-[300px] sm:h-[350px] md:h-[450px] lg:h-[600px] animate-fade-in-up animation-delay-600 mt-8 md:mt-0">
+          <div className="flex-1 relative h-[280px] sm:h-[340px] md:h-[450px] lg:h-[600px] animate-fade-in-up animation-delay-600">
             <div 
               className="relative w-full h-full preserve-3d"
               style={{ 
