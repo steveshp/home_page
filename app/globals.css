@@ -273,7 +273,47 @@ body {
       transform: translateY(-10px);
     }
   }
-  
+
+  /* 3D 건축물 떠다니기 애니메이션 */
+  @keyframes floating-3d {
+    0%, 100% {
+      transform: translateY(0) rotateY(-3deg);
+    }
+    50% {
+      transform: translateY(-20px) rotateY(3deg);
+    }
+  }
+
+  /* 미묘한 3D 회전 (데스크톱 idle 상태) */
+  @keyframes rotate-3d-subtle {
+    0%, 100% {
+      transform: rotateY(-2deg) rotateZ(-0.5deg);
+    }
+    50% {
+      transform: rotateY(2deg) rotateZ(0.5deg);
+    }
+  }
+
+  /* 패널 개별 펄스 효과 */
+  @keyframes panel-pulse {
+    0%, 100% {
+      opacity: 0.9;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  /* 글로우 효과 */
+  @keyframes glow-pulse {
+    0%, 100% {
+      filter: brightness(1);
+    }
+    50% {
+      filter: brightness(1.1);
+    }
+  }
+
   .animate-fade-in-up {
     animation: fade-in-up 0.8s ease-out forwards;
   }
@@ -289,7 +329,23 @@ body {
   .animate-float {
     animation: float 3s ease-in-out infinite;
   }
-  
+
+  .animate-floating-3d {
+    animation: floating-3d 8s ease-in-out infinite;
+  }
+
+  .animate-rotate-3d-subtle {
+    animation: rotate-3d-subtle 12s ease-in-out infinite;
+  }
+
+  .animate-panel-pulse {
+    animation: panel-pulse 6s ease-in-out infinite;
+  }
+
+  .animate-glow-pulse {
+    animation: glow-pulse 4s ease-in-out infinite;
+  }
+
   .animation-delay-200 {
     animation-delay: 0.2s;
     opacity: 0;
@@ -304,7 +360,33 @@ body {
     animation-delay: 0.6s;
     opacity: 0;
   }
-  
+
+  .animation-delay-800 {
+    animation-delay: 0.8s;
+  }
+
+  .animation-delay-1000 {
+    animation-delay: 1s;
+  }
+
+  .animation-delay-1200 {
+    animation-delay: 1.2s;
+  }
+
+  .animation-delay-1400 {
+    animation-delay: 1.4s;
+  }
+
+  /* 접근성: 모션 감소 선호 사용자를 위한 설정 */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-floating-3d,
+    .animate-rotate-3d-subtle,
+    .animate-panel-pulse,
+    .animate-glow-pulse {
+      animation: none;
+    }
+  }
+
   /* 커스텀 스크롤바 */
   ::-webkit-scrollbar {
     width: 12px;

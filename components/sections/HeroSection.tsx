@@ -100,12 +100,15 @@ export function HeroSection() {
 
           {/* 오른쪽 3D 비주얼 - Creatfix 스타일 건축물 */}
           <div className="flex-1 relative h-[280px] sm:h-[340px] md:h-[450px] lg:h-[600px] animate-fade-in-up animation-delay-600 mt-8 sm:mt-0">
-            <div 
-              className="relative w-full h-full preserve-3d"
-              style={{ 
-                transform: isMobile 
+            <div
+              className={`relative w-full h-full preserve-3d ${
+                isMobile ? 'animate-floating-3d' : 'animate-rotate-3d-subtle'
+              }`}
+              style={{
+                transform: isMobile
                   ? 'perspective(800px) rotateY(0deg) rotateX(0deg)'
-                  : `perspective(1000px) rotateY(${-mousePosition.x * 0.5}deg) rotateX(${mousePosition.y * 0.5}deg)` 
+                  : `perspective(1000px) rotateY(${-mousePosition.x * 0.5}deg) rotateX(${mousePosition.y * 0.5}deg)`,
+                willChange: 'transform'
               }}
             >
               {/* 3D 건축물 구조 - 레이어드 패널 */}
@@ -117,6 +120,7 @@ export function HeroSection() {
                     const scale = 1 - i * 0.08
                     const zOffset = i * (isMobile ? 20 : 40)
                     const opacity = 0.9 - i * 0.1
+                    const delayClass = i % 2 === 0 ? '' : 'animation-delay-800'
                     return (
                       <div
                         key={`main-${i}`}
@@ -128,15 +132,16 @@ export function HeroSection() {
                           opacity,
                         }}
                       >
-                        <div 
-                          className="w-full h-full rounded-lg"
+                        <div
+                          className={`w-full h-full rounded-lg animate-panel-pulse ${delayClass}`}
                           style={{
-                            background: `linear-gradient(135deg, 
-                              oklch(${0.75 - i * 0.05} ${0.20 - i * 0.02} ${235 + i * 10} / ${opacity}), 
+                            background: `linear-gradient(135deg,
+                              oklch(${0.75 - i * 0.05} ${0.20 - i * 0.02} ${235 + i * 10} / ${opacity}),
                               oklch(${0.65 - i * 0.03} ${0.18 - i * 0.02} ${250 + i * 8} / ${opacity}))`,
                             backdropFilter: 'blur(10px)',
                             border: '1px solid rgba(255, 255, 255, 0.2)',
                             boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
+                            willChange: 'opacity'
                           }}
                         />
                       </div>
@@ -150,6 +155,7 @@ export function HeroSection() {
                     const zOffset = i * (isMobile ? 10 : 25)
                     const rotation = (isMobile ? -8 : -15) - i * (isMobile ? 2 : 5)
                     const opacity = 0.7 - i * 0.1
+                    const delayClass = `animation-delay-${1000 + i * 200}`
                     return (
                       <div
                         key={`left-${i}`}
@@ -161,14 +167,15 @@ export function HeroSection() {
                           opacity,
                         }}
                       >
-                        <div 
-                          className="w-full h-full rounded-lg"
+                        <div
+                          className={`w-full h-full rounded-lg animate-panel-pulse ${delayClass}`}
                           style={{
-                            background: `linear-gradient(135deg, 
-                              oklch(${0.70 - i * 0.05} ${0.15 - i * 0.02} ${220 + i * 10} / ${opacity}), 
+                            background: `linear-gradient(135deg,
+                              oklch(${0.70 - i * 0.05} ${0.15 - i * 0.02} ${220 + i * 10} / ${opacity}),
                               oklch(${0.60 - i * 0.03} ${0.20 - i * 0.02} ${240 + i * 8} / ${opacity}))`,
                             backdropFilter: 'blur(8px)',
                             border: '1px solid rgba(255, 255, 255, 0.15)',
+                            willChange: 'opacity'
                           }}
                         />
                       </div>
@@ -182,6 +189,7 @@ export function HeroSection() {
                     const zOffset = i * (isMobile ? 10 : 25)
                     const rotation = (isMobile ? 8 : 15) + i * (isMobile ? 2 : 5)
                     const opacity = 0.7 - i * 0.1
+                    const delayClass = `animation-delay-${1200 + i * 200}`
                     return (
                       <div
                         key={`right-${i}`}
@@ -193,14 +201,15 @@ export function HeroSection() {
                           opacity,
                         }}
                       >
-                        <div 
-                          className="w-full h-full rounded-lg"
+                        <div
+                          className={`w-full h-full rounded-lg animate-panel-pulse ${delayClass}`}
                           style={{
-                            background: `linear-gradient(135deg, 
-                              oklch(${0.65 - i * 0.05} ${0.18 - i * 0.02} ${260 + i * 10} / ${opacity}), 
+                            background: `linear-gradient(135deg,
+                              oklch(${0.65 - i * 0.05} ${0.18 - i * 0.02} ${260 + i * 10} / ${opacity}),
                               oklch(${0.75 - i * 0.03} ${0.15 - i * 0.02} ${280 + i * 8} / ${opacity}))`,
                             backdropFilter: 'blur(8px)',
                             border: '1px solid rgba(255, 255, 255, 0.15)',
+                            willChange: 'opacity'
                           }}
                         />
                       </div>
