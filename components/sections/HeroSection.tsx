@@ -151,7 +151,7 @@ export function HeroSection() {
                   {/* 사이드 날개 패널들 - 왼쪽 */}
                   {[...Array(isMobile ? 2 : 5)].map((_, i) => {
                     const scale = 0.7 - i * 0.1
-                    const xOffset = (isMobile ? -30 : -60) - i * (isMobile ? 15 : 30)
+                    const xOffset = (isMobile ? -50 : -100) - i * (isMobile ? 20 : 40)
                     const zOffset = i * (isMobile ? 10 : 25)
                     const rotation = (isMobile ? -8 : -15) - i * (isMobile ? 2 : 5)
                     const opacity = 0.7 - i * 0.1
@@ -185,7 +185,7 @@ export function HeroSection() {
                   {/* 사이드 날개 패널들 - 오른쪽 */}
                   {[...Array(isMobile ? 2 : 5)].map((_, i) => {
                     const scale = 0.7 - i * 0.1
-                    const xOffset = (isMobile ? 30 : 60) + i * (isMobile ? 15 : 30)
+                    const xOffset = (isMobile ? 50 : 100) + i * (isMobile ? 20 : 40)
                     const zOffset = i * (isMobile ? 10 : 25)
                     const rotation = (isMobile ? 8 : 15) + i * (isMobile ? 2 : 5)
                     const opacity = 0.7 - i * 0.1

@@ -320,7 +320,7 @@ body {
       transform: translateX(0);
     }
     50% {
-      transform: translateX(-40px);
+      transform: translateX(-60px);
     }
   }
 
@@ -330,7 +330,7 @@ body {
       transform: translateX(0);
     }
     50% {
-      transform: translateX(40px);
+      transform: translateX(60px);
     }
   }
 
