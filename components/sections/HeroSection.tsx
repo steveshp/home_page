@@ -159,7 +159,7 @@ export function HeroSection() {
                     return (
                       <div
                         key={`left-${i}`}
-                        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+                        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-slide-left"
                         style={{
                           width: `${(isMobile ? 80 : 150) * scale}px`,
                           height: `${(isMobile ? 160 : 300) * scale}px`,
@@ -193,7 +193,7 @@ export function HeroSection() {
                     return (
                       <div
                         key={`right-${i}`}
-                        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+                        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-slide-right"
                         style={{
                           width: `${(isMobile ? 80 : 150) * scale}px`,
                           height: `${(isMobile ? 160 : 300) * scale}px`,

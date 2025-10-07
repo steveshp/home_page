@@ -314,6 +314,26 @@ body {
     }
   }
 
+  /* 사이드 패널 좌우 움직임 - 왼쪽 */
+  @keyframes slide-left {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(-15px);
+    }
+  }
+
+  /* 사이드 패널 좌우 움직임 - 오른쪽 */
+  @keyframes slide-right {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(15px);
+    }
+  }
+
   .animate-fade-in-up {
     animation: fade-in-up 0.8s ease-out forwards;
   }
@@ -344,6 +364,14 @@ body {
 
   .animate-glow-pulse {
     animation: glow-pulse 4s ease-in-out infinite;
+  }
+
+  .animate-slide-left {
+    animation: slide-left 7s ease-in-out infinite;
+  }
+
+  .animate-slide-right {
+    animation: slide-right 7s ease-in-out infinite;
   }
 
   .animation-delay-200 {
