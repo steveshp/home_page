@@ -116,7 +116,7 @@ export function HeroSection() {
                 {/* 중앙 타워 */}
                 <div className="relative">
                   {/* 메인 패널들 */}
-                  {[...Array(isMobile ? 4 : 7)].map((_, i) => {
+                  {[...Array(7)].map((_, i) => {
                     const scale = 1 - i * 0.08
                     const zOffset = i * (isMobile ? 20 : 40)
                     const opacity = 0.9 - i * 0.1
@@ -149,7 +149,7 @@ export function HeroSection() {
                   })}
                   
                   {/* 사이드 날개 패널들 - 왼쪽 */}
-                  {[...Array(isMobile ? 3 : 7)].map((_, i) => {
+                  {[...Array(7)].map((_, i) => {
                     const scale = 0.7 - i * 0.1
                     const xOffset = (isMobile ? -70 : -130) - i * (isMobile ? 25 : 50)
                     const zOffset = i * (isMobile ? 10 : 25)
@@ -183,7 +183,7 @@ export function HeroSection() {
                   })}
                   
                   {/* 사이드 날개 패널들 - 오른쪽 */}
-                  {[...Array(isMobile ? 3 : 7)].map((_, i) => {
+                  {[...Array(7)].map((_, i) => {
                     const scale = 0.7 - i * 0.1
                     const xOffset = (isMobile ? 70 : 130) + i * (isMobile ? 25 : 50)
                     const zOffset = i * (isMobile ? 10 : 25)
