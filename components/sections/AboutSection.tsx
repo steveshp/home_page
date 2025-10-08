@@ -53,7 +53,7 @@ export function AboutSection() {
                 </span>
               </h2>
               <p className="text-lg text-gray-600 mb-6">
-                2014년 설립 이래, 페이스펄은 혁신적인 AI 기술과 소프트웨어 솔루션으로
+                2021년 설립 이래, 페이스펄은 혁신적인 AI 기술과 소프트웨어 솔루션으로
                 수많은 기업의 디지털 전환을 성공적으로 이끌어왔습니다.
               </p>
               <p className="text-lg text-gray-600 mb-8">
