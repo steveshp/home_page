@@ -141,7 +141,7 @@ export function AboutSection() {
                   CEO 메시지
                 </h3>
                 <blockquote className="text-gray-600 italic mb-6">
-                  "페이스펄은 고객의 비즈니스 성공을 위해
+                  "페이스펄은 고객의 비즈니스 동반 성공을 위해
                   최선을 다하는 기술 파트너입니다.
                   우리는 단순히 소프트웨어를 개발하는 것이 아니라,
                   고객의 비전을 현실로 만드는 솔루션을 제공합니다.
@@ -150,7 +150,7 @@ export function AboutSection() {
                   고객과 함께 성장하는 기업이 되겠습니다."
                 </blockquote>
                 <div>
-                  <div className="font-semibold text-gray-900">김대표</div>
+                  <div className="font-semibold text-gray-900">박 혁</div>
                   <div className="text-gray-500">대표이사</div>
                 </div>
               </div>

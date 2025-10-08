@@ -148,7 +148,7 @@ export function Footer() {
             </div>
             <div className="flex space-x-6">
               <span>사업자등록번호: 123-45-67890</span>
-              <span>대표: 김대표</span>
+              <span>대표: 박혁</span>
             </div>
           </div>
         </div>
