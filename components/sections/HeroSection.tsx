@@ -159,14 +159,21 @@ export function HeroSection() {
                     return (
                       <div
                         key={`left-${i}`}
-                        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+                        className="animate-slide-left"
                         style={{
-                          width: `${(isMobile ? 130 : 180) * scale}px`,
-                          height: `${(isMobile ? 200 : 300) * scale}px`,
-                          transform: `translateX(${xOffset}px) translateZ(${zOffset}px) rotateY(${rotation}deg)`,
-                          opacity,
-                        }}
+                          animationDuration: isMobile ? '10s' : '8s',
+                          '--gather-offset': `${Math.abs(xOffset)}px`,
+                        } as React.CSSProperties}
                       >
+                        <div
+                          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+                          style={{
+                            width: `${(isMobile ? 130 : 180) * scale}px`,
+                            height: `${(isMobile ? 200 : 300) * scale}px`,
+                            transform: `translateX(${xOffset}px) translateZ(${zOffset}px) rotateY(${rotation}deg)`,
+                            opacity,
+                          }}
+                        >
                         <div
                           className={`w-full h-full rounded-lg animate-panel-pulse ${delayClass}`}
                           style={{
@@ -178,10 +185,11 @@ export function HeroSection() {
                             willChange: 'opacity'
                           }}
                         />
+                        </div>
                       </div>
                     )
                   })}
-                  
+
                   {/* 사이드 날개 패널들 - 오른쪽 */}
                   {[...Array(7)].map((_, i) => {
                     const scale = 0.7 - i * 0.1
@@ -193,14 +201,21 @@ export function HeroSection() {
                     return (
                       <div
                         key={`right-${i}`}
-                        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+                        className="animate-slide-right"
                         style={{
-                          width: `${(isMobile ? 130 : 180) * scale}px`,
-                          height: `${(isMobile ? 200 : 300) * scale}px`,
-                          transform: `translateX(${xOffset}px) translateZ(${zOffset}px) rotateY(${rotation}deg)`,
-                          opacity,
-                        }}
+                          animationDuration: isMobile ? '10s' : '8s',
+                          '--gather-offset': `${-xOffset}px`,
+                        } as React.CSSProperties}
                       >
+                        <div
+                          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+                          style={{
+                            width: `${(isMobile ? 130 : 180) * scale}px`,
+                            height: `${(isMobile ? 200 : 300) * scale}px`,
+                            transform: `translateX(${xOffset}px) translateZ(${zOffset}px) rotateY(${rotation}deg)`,
+                            opacity,
+                          }}
+                        >
                         <div
                           className={`w-full h-full rounded-lg animate-panel-pulse ${delayClass}`}
                           style={{
@@ -212,6 +227,7 @@ export function HeroSection() {
                             willChange: 'opacity'
                           }}
                         />
+                        </div>
                       </div>
                     )
                   })}

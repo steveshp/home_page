@@ -314,23 +314,23 @@ body {
     }
   }
 
-  /* 사이드 패널 좌우 움직임 - 왼쪽 */
+  /* 사이드 패널 좌우 움직임 - 왼쪽 (퍼졌다 모이기) */
   @keyframes slide-left {
     0%, 100% {
       transform: translateX(0);
     }
     50% {
-      transform: translateX(-80px);
+      transform: translateX(var(--gather-offset));
     }
   }
 
-  /* 사이드 패널 좌우 움직임 - 오른쪽 */
+  /* 사이드 패널 좌우 움직임 - 오른쪽 (퍼졌다 모이기) */
   @keyframes slide-right {
     0%, 100% {
       transform: translateX(0);
     }
     50% {
-      transform: translateX(80px);
+      transform: translateX(var(--gather-offset));
     }
   }
 
