@@ -44,21 +44,16 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* 로고 */}
-          <Link 
-            href="/" 
-            className="flex items-center gap-3"
+          <Link
+            href="/"
+            className="flex items-center"
             onClick={closeMobileMenu}
           >
             <img
               src="/logo.png"
               alt="Faithful"
-              className="h-10 w-auto"
+              className="h-24 lg:h-28 w-auto"
             />
-            <span className={`text-xl font-bold transition-colors ${
-              isScrolled ? 'text-foreground' : 'text-foreground drop-shadow-lg'
-            }`}>
-              페이스펄
-            </span>
           </Link>
 
           {/* 데스크톱 네비게이션 */}

@@ -42,8 +42,8 @@ export function ContactSection() {
                       <div>
                         <h4 className="font-semibold text-gray-900 mb-1">주소</h4>
                         <p className="text-gray-600">
-                          서울특별시 강남구 테헤란로 123<br />
-                          SV빌딩 12층
+                          경기도 부천시 원미구 길주로 252<br />
+                          금강베네스타 712
                         </p>
                       </div>
                     </div>
