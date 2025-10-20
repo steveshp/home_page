@@ -59,7 +59,7 @@ export function ContactSection() {
                       <div>
                         <h4 className="font-semibold text-gray-900 mb-1">전화</h4>
                         <p className="text-gray-600">
-                          대표번호: 02-1234-5678<br />
+                          대표번호: 032-324-9633<br />
                           팩스: 02-1234-5679
                         </p>
                       </div>
