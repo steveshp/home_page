@@ -62,6 +62,15 @@ export const metadata: Metadata = {
     description: "최첨단 인공지능 기술과 창의적인 개발 솔루션으로 귀사의 브랜드 가치를 높이고 비즈니스 성장을 가속화합니다.",
     images: ["https://faithful.co.kr/twitter-image.png"],
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", type: "image/x-icon" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [
+      { url: "/icon.png", type: "image/png", sizes: "180x180" },
+    ],
+  },
   robots: {
     index: true,
     follow: true,
