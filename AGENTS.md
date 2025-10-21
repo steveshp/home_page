@@ -35,6 +35,13 @@ task-master validate-dependencies                            # Check for depende
 task-master generate                                         # Update task markdown files (usually auto-called)
 ```
 
+## Deployment & Hosting
+
+- 이 프로젝트는 GitHub Pages 정적 배포를 기준으로 구성되었습니다. `next.config.ts`에서 `output: 'export'`, `images.unoptimized`, `trailingSlash: true`가 설정되어 있으며 GitHub Pages 환경과 호환되도록 되어 있습니다.
+- 프로덕션 빌드는 `npm run export` 스크립트를 사용합니다. 이 명령은 `next build`를 수행한 뒤 `out/` 디렉터리를 만들고, GitHub Pages에 필요한 `.nojekyll` 파일과 커스텀 도메인 `faithful.co.kr`이 적힌 `CNAME`을 자동으로 생성합니다.
+- 배포 시에는 최신 `out/` 디렉터리 내용을 GitHub Pages용 브랜치(예: `gh-pages`)나 GitHub Pages 루트에 업로드해야 하며, 정적 자산(파비콘 등)을 교체했을 때도 `npm run export`로 새로 생성된 `out/` 결과물을 사용해야 합니다.
+- 로컬 검증은 `npm run dev`로 진행하고, 배포 전에는 `npm run build` 또는 `npm run export`를 실행하여 정적 출력물이 문제없이 생성되는지 확인합니다.
+
 ## Key Files & Project Structure
 
 ### Core Files
