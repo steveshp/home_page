@@ -52,7 +52,7 @@ export function Header() {
             <img
               src="/logo.png"
               alt="Faithful"
-              className="h-24 lg:h-28 w-auto"
+              className="h-12 lg:h-14 w-auto"
             />
           </Link>
 
