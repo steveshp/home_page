@@ -3,7 +3,6 @@
 import Link from "next/link"
 import { useEffect } from "react"
 import { Menu, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import { useAppStore } from "@/store/useAppStore"
 import {
   NavigationMenu,
@@ -16,6 +15,7 @@ import {
 const navItems = [
   { href: "/", label: "홈" },
   { href: "#services", label: "서비스" },
+  { href: "/recommendations", label: "추천" },
   { href: "#projects", label: "프로젝트" },
   { href: "#about", label: "회사소개" },
   { href: "#contact", label: "문의하기" },
