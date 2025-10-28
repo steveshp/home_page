@@ -1,0 +1,21 @@
+{
+  "tasks": [],
+  "completedTasks": [],
+  "projectMetrics": {
+    "codeQuality": {
+      "complexity": "low",
+      "testCoverage": 0,
+      "technicalDebt": 0,
+      "performanceScore": 0
+    },
+    "progress": {
+      "completionRate": 0,
+      "estimatedCompletion": null,
+      "blockers": 0,
+      "riskLevel": "low"
+    }
+  },
+  "lastUpdated": "2025-01-16T00:00:00Z",
+  "currentSprint": "초기 설정",
+  "version": "1.0.0"
+}
