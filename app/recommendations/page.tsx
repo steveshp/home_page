@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth"
-import { ref, push, onValue, remove, query, orderByChild, equalTo } from "firebase/database"
+import { ref, push, onValue, remove } from "firebase/database"
 import { auth, database } from "@/lib/firebase"
 import { Button } from "@/components/ui/button"
 import { LogOut, Plus, Trash2, User } from "lucide-react"
@@ -114,7 +114,7 @@ export default function RecommendationsPage() {
     try {
       await signInWithEmailAndPassword(auth, email, password)
       // 로그인 성공 - onAuthStateChanged에서 처리됨
-    } catch (err: any) {
+    } catch (err) {
       console.error("Login error:", err)
       setError("로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.")
     } finally {
