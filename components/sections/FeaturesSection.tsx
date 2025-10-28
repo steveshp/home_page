@@ -48,7 +48,7 @@ export function FeaturesSection() {
         {/* 섹션 헤더 */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-            페이스펄이 제공하는
+            주식회사 페이스펄 이 제공하는
             <span className="block text-gradient mt-2">특별한 기능들</span>
           </h2>
           <p className="text-lg text-muted-foreground">

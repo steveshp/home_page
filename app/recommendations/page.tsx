@@ -1,168 +1,184 @@
-import type { Metadata } from "next"
-import { Header } from "@/components/layout/Header"
-import { Footer } from "@/components/layout/Footer"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+"use client"
+
+import { useState, useEffect } from "react"
+import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth"
+import { auth } from "@/lib/firebase"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Star, TrendingUp, Award } from "lucide-react"
-import Link from "next/link"
-
-export const metadata: Metadata = {
-  title: "추천 서비스",
-  description: "페이스펄이 추천하는 최고의 서비스와 솔루션을 만나보세요. AI 기반 웹 개발부터 맞춤형 기업 솔루션까지 다양한 추천을 확인하실 수 있습니다.",
-  keywords: ["추천", "서비스 추천", "솔루션", "AI 웹 개발", "기업 솔루션", "페이스펄 추천"],
-  openGraph: {
-    title: "추천 서비스 | 페이스펄 - Faithful",
-    description: "페이스펄이 추천하는 최고의 서비스와 솔루션을 만나보세요.",
-    url: "https://faithful.co.kr/recommendations",
-  },
-}
-
-const recommendations = [
-  {
-    id: 1,
-    category: "인기",
-    title: "AI 기반 웹 개발 솔루션",
-    description: "최신 인공지능 기술을 활용한 맞춤형 웹 개발 서비스입니다. 빠른 개발 속도와 높은 품질을 동시에 제공합니다.",
-    features: ["자동화된 개발 프로세스", "실시간 품질 검증", "확장 가능한 아키텍처"],
-    badge: "Best Seller",
-    icon: Star,
-  },
-  {
-    id: 2,
-    category: "추천",
-    title: "기업 맞춤형 솔루션",
-    description: "귀사의 비즈니스 요구사항에 딱 맞는 커스텀 솔루션을 제공합니다. 효율적인 업무 프로세스 구축을 지원합니다.",
-    features: ["맞춤형 설계", "통합 관리 시스템", "24/7 기술 지원"],
-    badge: "Recommended",
-    icon: TrendingUp,
-  },
-  {
-    id: 3,
-    category: "프리미엄",
-    title: "브랜드 가치 향상 패키지",
-    description: "웹사이트부터 브랜딩까지 종합적인 디지털 전략을 수립하여 브랜드 가치를 극대화합니다.",
-    features: ["브랜드 컨설팅", "UI/UX 디자인", "마케팅 전략"],
-    badge: "Premium",
-    icon: Award,
-  },
-]
+import { LogOut } from "lucide-react"
 
 export default function RecommendationsPage() {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [redirectUrl, setRedirectUrl] = useState("")
+
+  useEffect(() => {
+    // 인증 상태 감지
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsAuthenticated(true)
+        // 로그인 성공 시 외부 링크 생성
+        const baseUrl = process.env.NEXT_PUBLIC_REDIRECT_URL || ""
+        const finalUrl = baseUrl
+          .replace("{login}", encodeURIComponent(user.email || ""))
+          .replace("{passwd}", encodeURIComponent(password || ""))
+
+        setRedirectUrl(finalUrl)
+      } else {
+        setIsAuthenticated(false)
+      }
+    })
+
+    return () => unsubscribe()
+  }, [password])
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError("")
+    setLoading(true)
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password)
+      // 로그인 성공 - onAuthStateChanged에서 처리됨
+    } catch (err: any) {
+      console.error("Login error:", err)
+      setError("로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.")
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth)
+      setEmail("")
+      setPassword("")
+      setRedirectUrl("")
+    } catch (err) {
+      console.error("Logout error:", err)
+    }
+  }
+
+  const handleRedirect = () => {
+    if (redirectUrl) {
+      window.location.href = redirectUrl
+    }
+  }
+
+  if (isAuthenticated) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-[oklch(0.98_0.01_250)] to-background">
+        <div className="w-full max-w-md p-8 space-y-6 bg-card/50 backdrop-blur-sm border border-border/50 rounded-3xl shadow-lg glass">
+          <div className="text-center">
+            <h1 className="text-3xl font-bold text-gradient mb-2">로그인 성공!</h1>
+            <p className="text-muted-foreground mb-6">
+              추천등록 시스템으로 이동할 준비가 완료되었습니다.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            <Button
+              onClick={handleRedirect}
+              className="w-full bg-gradient-to-r from-[oklch(0.55_0.25_235)] to-[oklch(0.65_0.20_280)] text-white font-semibold py-6 text-lg"
+              size="lg"
+            >
+              추천등록 시스템으로 이동
+            </Button>
+
+            <Button
+              onClick={handleLogout}
+              variant="outline"
+              className="w-full"
+              size="lg"
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              로그아웃
+            </Button>
+          </div>
+
+          {redirectUrl && (
+            <div className="mt-4 p-4 bg-muted/50 rounded-lg">
+              <p className="text-xs text-muted-foreground break-all">
+                이동할 URL: {redirectUrl}
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <div className="min-h-screen">
-      <Header />
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-[oklch(0.98_0.01_250)] to-background">
+      {/* 배경 장식 */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-10 w-64 h-64 gradient-primary rounded-full opacity-10 blur-3xl" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 gradient-secondary rounded-full opacity-10 blur-3xl" />
+      </div>
 
-      <main>
-        {/* Hero Section */}
-        <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
-          {/* Background Effects */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10 -z-10" />
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/20 rounded-full blur-3xl -z-10 animate-float" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/20 rounded-full blur-3xl -z-10 animate-float" style={{ animationDelay: '2s' }} />
+      <div className="w-full max-w-md p-8 space-y-6 bg-card/50 backdrop-blur-sm border border-border/50 rounded-3xl shadow-lg glass relative z-10">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-gradient mb-2">추천등록</h1>
+          <p className="text-muted-foreground">
+            로그인하여 추천등록 시스템에 접속하세요
+          </p>
+        </div>
 
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <Badge className="mb-4 text-sm px-4 py-1">Recommendations</Badge>
-              <h1 className="text-4xl lg:text-6xl font-bold mb-6 animate-fade-in-up">
-                페이스펄이 추천하는
-                <br />
-                <span className="gradient-primary bg-clip-text text-transparent">
-                  최고의 솔루션
-                </span>
-              </h1>
-              <p className="text-lg lg:text-xl text-muted-foreground mb-8 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-                귀사의 성공을 위해 엄선된 서비스와 솔루션을 만나보세요.
-                <br className="hidden lg:block" />
-                AI 기반 웹 개발부터 맞춤형 기업 솔루션까지 다양한 추천을 제공합니다.
-              </p>
-            </div>
+        <form onSubmit={handleLogin} className="space-y-4">
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium mb-2">
+              이메일
+            </label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-3 rounded-lg border border-border bg-background/50 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
+              placeholder="your@email.com"
+              required
+              disabled={loading}
+            />
           </div>
-        </section>
 
-        {/* Recommendations Section */}
-        <section className="py-20 lg:py-28">
-          <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                {recommendations.map((item, index) => (
-                  <Card
-                    key={item.id}
-                    className="glass hover-lift group cursor-pointer transition-all duration-300 border-2 hover:border-primary/50 animate-fade-in-up"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    <CardHeader>
-                      <div className="flex items-center justify-between mb-4">
-                        <Badge variant="secondary" className="text-xs">
-                          {item.badge}
-                        </Badge>
-                        <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                          <item.icon className="w-5 h-5" />
-                        </div>
-                      </div>
-                      <CardTitle className="text-xl mb-2 group-hover:text-primary transition-colors">
-                        {item.title}
-                      </CardTitle>
-                      <CardDescription className="text-sm">
-                        {item.description}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-3 mb-6">
-                        {item.features.map((feature, idx) => (
-                          <div key={idx} className="flex items-center gap-2 text-sm">
-                            <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                            <span className="text-muted-foreground">{feature}</span>
-                          </div>
-                        ))}
-                      </div>
-                      <Button
-                        className="w-full group-hover:bg-primary group-hover:text-white transition-all"
-                        variant="outline"
-                        asChild
-                      >
-                        <Link href="#contact">
-                          자세히 보기
-                          <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </Link>
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium mb-2">
+              비밀번호
+            </label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-3 rounded-lg border border-border bg-background/50 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
+              placeholder="••••••••"
+              required
+              disabled={loading}
+            />
           </div>
-        </section>
 
-        {/* CTA Section */}
-        <section className="py-20 lg:py-28 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center glass rounded-3xl p-8 lg:p-12">
-              <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-                맞춤형 추천이 필요하신가요?
-              </h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                귀사의 비즈니스 목표와 요구사항에 딱 맞는 솔루션을 추천해드립니다.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="text-lg px-8" asChild>
-                  <Link href="#contact">
-                    상담 신청하기
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-                <Button size="lg" variant="outline" className="text-lg px-8" asChild>
-                  <Link href="/">
-                    홈으로 돌아가기
-                  </Link>
-                </Button>
-              </div>
+          {error && (
+            <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+              <p className="text-sm text-red-600">{error}</p>
             </div>
-          </div>
-        </section>
-      </main>
+          )}
 
-      <Footer />
+          <Button
+            type="submit"
+            className="w-full bg-gradient-to-r from-[oklch(0.55_0.25_235)] to-[oklch(0.65_0.20_280)] text-white font-semibold py-6 text-lg"
+            disabled={loading}
+            size="lg"
+          >
+            {loading ? "로그인 중..." : "로그인"}
+          </Button>
+        </form>
+
+        <div className="text-center text-sm text-muted-foreground">
+          <p>Firebase Authentication을 사용합니다</p>
+        </div>
+      </div>
     </div>
   )
 }
