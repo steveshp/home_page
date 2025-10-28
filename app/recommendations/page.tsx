@@ -2,9 +2,16 @@
 
 import { useState, useEffect } from "react"
 import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth"
-import { auth } from "@/lib/firebase"
+import { collection, addDoc, query, where, getDocs, Timestamp, deleteDoc, doc } from "firebase/firestore"
+import { auth, db } from "@/lib/firebase"
 import { Button } from "@/components/ui/button"
-import { LogOut } from "lucide-react"
+import { LogOut, Plus, Trash2, User } from "lucide-react"
+
+interface Referral {
+  id: string
+  name: string
+  createdAt: Date
+}
 
 export default function RecommendationsPage() {
   const [email, setEmail] = useState("")
@@ -12,27 +19,102 @@ export default function RecommendationsPage() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [redirectUrl, setRedirectUrl] = useState("")
+  const [userId, setUserId] = useState<string>("")
+
+  // 추천인 관련 상태
+  const [referrals, setReferrals] = useState<Referral[]>([])
+  const [newReferralName, setNewReferralName] = useState("")
+  const [addingReferral, setAddingReferral] = useState(false)
 
   useEffect(() => {
     // 인증 상태 감지
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setIsAuthenticated(true)
-        // 로그인 성공 시 외부 링크 생성
-        const baseUrl = process.env.NEXT_PUBLIC_REDIRECT_URL || ""
-        const finalUrl = baseUrl
-          .replace("{login}", encodeURIComponent(user.email || ""))
-          .replace("{passwd}", encodeURIComponent(password || ""))
-
-        setRedirectUrl(finalUrl)
+        setUserId(user.uid)
+        // 기존 추천인 목록 불러오기
+        await loadReferrals(user.uid)
       } else {
         setIsAuthenticated(false)
+        setUserId("")
+        setReferrals([])
       }
     })
 
     return () => unsubscribe()
-  }, [password])
+  }, [])
+
+  // 추천인 목록 불러오기
+  const loadReferrals = async (uid: string) => {
+    try {
+      const q = query(
+        collection(db, "referrals"),
+        where("userId", "==", uid)
+      )
+      const querySnapshot = await getDocs(q)
+      const loadedReferrals: Referral[] = []
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data()
+        loadedReferrals.push({
+          id: doc.id,
+          name: data.name,
+          createdAt: data.createdAt?.toDate() || new Date()
+        })
+      })
+
+      // 최신순으로 정렬
+      loadedReferrals.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+      setReferrals(loadedReferrals)
+    } catch (err) {
+      console.error("Error loading referrals:", err)
+    }
+  }
+
+  // 추천인 추가
+  const handleAddReferral = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!newReferralName.trim() || !userId) return
+
+    setAddingReferral(true)
+    try {
+      const docRef = await addDoc(collection(db, "referrals"), {
+        userId: userId,
+        name: newReferralName.trim(),
+        createdAt: Timestamp.now()
+      })
+
+      // 로컬 상태 업데이트
+      setReferrals([
+        {
+          id: docRef.id,
+          name: newReferralName.trim(),
+          createdAt: new Date()
+        },
+        ...referrals
+      ])
+
+      setNewReferralName("")
+    } catch (err) {
+      console.error("Error adding referral:", err)
+      alert("추천인 추가에 실패했습니다.")
+    } finally {
+      setAddingReferral(false)
+    }
+  }
+
+  // 추천인 삭제
+  const handleDeleteReferral = async (id: string) => {
+    if (!confirm("정말 삭제하시겠습니까?")) return
+
+    try {
+      await deleteDoc(doc(db, "referrals", id))
+      setReferrals(referrals.filter(r => r.id !== id))
+    } catch (err) {
+      console.error("Error deleting referral:", err)
+      alert("삭제에 실패했습니다.")
+    }
+  }
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -55,61 +137,125 @@ export default function RecommendationsPage() {
       await signOut(auth)
       setEmail("")
       setPassword("")
-      setRedirectUrl("")
+      setReferrals([])
     } catch (err) {
       console.error("Logout error:", err)
     }
   }
 
-  const handleRedirect = () => {
-    if (redirectUrl) {
-      window.location.href = redirectUrl
-    }
-  }
-
+  // 로그인된 상태 - 추천인 관리 화면
   if (isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-[oklch(0.98_0.01_250)] to-background">
-        <div className="w-full max-w-md p-8 space-y-6 bg-card/50 backdrop-blur-sm border border-border/50 rounded-3xl shadow-lg glass">
-          <div className="text-center">
-            <h1 className="text-3xl font-bold text-gradient mb-2">로그인 성공!</h1>
-            <p className="text-muted-foreground mb-6">
-              추천등록 시스템으로 이동할 준비가 완료되었습니다.
-            </p>
-          </div>
+      <div className="min-h-screen bg-gradient-to-br from-background via-[oklch(0.98_0.01_250)] to-background py-8 px-4">
+        {/* 배경 장식 */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-20 left-10 w-64 h-64 gradient-primary rounded-full opacity-10 blur-3xl" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 gradient-secondary rounded-full opacity-10 blur-3xl" />
+        </div>
 
-          <div className="space-y-4">
-            <Button
-              onClick={handleRedirect}
-              className="w-full bg-gradient-to-r from-[oklch(0.55_0.25_235)] to-[oklch(0.65_0.20_280)] text-white font-semibold py-6 text-lg"
-              size="lg"
-            >
-              추천등록 시스템으로 이동
-            </Button>
-
+        <div className="max-w-4xl mx-auto relative z-10">
+          {/* 헤더 */}
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h1 className="text-3xl font-bold text-gradient mb-2">추천인 관리</h1>
+              <p className="text-muted-foreground">등록된 추천인을 관리하세요</p>
+            </div>
             <Button
               onClick={handleLogout}
               variant="outline"
-              className="w-full"
-              size="lg"
+              className="gap-2"
             >
-              <LogOut className="w-4 h-4 mr-2" />
+              <LogOut className="w-4 h-4" />
               로그아웃
             </Button>
           </div>
 
-          {redirectUrl && (
-            <div className="mt-4 p-4 bg-muted/50 rounded-lg">
-              <p className="text-xs text-muted-foreground break-all">
-                이동할 URL: {redirectUrl}
-              </p>
-            </div>
-          )}
+          {/* 추천인 추가 폼 */}
+          <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-3xl p-6 mb-6 glass">
+            <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+              <Plus className="w-5 h-5" />
+              새 추천인 추가
+            </h2>
+            <form onSubmit={handleAddReferral} className="flex gap-3">
+              <input
+                type="text"
+                value={newReferralName}
+                onChange={(e) => setNewReferralName(e.target.value)}
+                placeholder="추천인 이름을 입력하세요"
+                className="flex-1 px-4 py-3 rounded-lg border border-border bg-background/50 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
+                disabled={addingReferral}
+                required
+              />
+              <Button
+                type="submit"
+                disabled={addingReferral || !newReferralName.trim()}
+                className="bg-gradient-to-r from-[oklch(0.55_0.25_235)] to-[oklch(0.65_0.20_280)] text-white px-8"
+              >
+                {addingReferral ? "추가 중..." : "추가"}
+              </Button>
+            </form>
+          </div>
+
+          {/* 추천인 목록 */}
+          <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-3xl p-6 glass">
+            <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+              <User className="w-5 h-5" />
+              등록된 추천인 ({referrals.length}명)
+            </h2>
+
+            {referrals.length === 0 ? (
+              <div className="text-center py-12">
+                <User className="w-16 h-16 mx-auto text-muted-foreground/30 mb-4" />
+                <p className="text-muted-foreground">
+                  아직 등록된 추천인이 없습니다.
+                </p>
+                <p className="text-sm text-muted-foreground mt-2">
+                  위 폼에서 추천인을 추가해보세요.
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {referrals.map((referral) => (
+                  <div
+                    key={referral.id}
+                    className="flex items-center justify-between p-4 rounded-lg border border-border/50 bg-background/30 hover:bg-background/50 transition-all group"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[oklch(0.55_0.25_235)] to-[oklch(0.65_0.20_280)] flex items-center justify-center text-white font-semibold">
+                        {referral.name.charAt(0).toUpperCase()}
+                      </div>
+                      <div>
+                        <p className="font-semibold">{referral.name}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {referral.createdAt.toLocaleDateString('ko-KR', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                    <Button
+                      onClick={() => handleDeleteReferral(referral.id)}
+                      variant="ghost"
+                      size="sm"
+                      className="opacity-0 group-hover:opacity-100 transition-opacity text-red-500 hover:text-red-600 hover:bg-red-50"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     )
   }
 
+  // 로그인 화면
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-[oklch(0.98_0.01_250)] to-background">
       {/* 배경 장식 */}
@@ -122,7 +268,7 @@ export default function RecommendationsPage() {
         <div className="text-center">
           <h1 className="text-3xl font-bold text-gradient mb-2">추천등록</h1>
           <p className="text-muted-foreground">
-            로그인하여 추천등록 시스템에 접속하세요
+            로그인하여 추천인을 관리하세요
           </p>
         </div>
 
