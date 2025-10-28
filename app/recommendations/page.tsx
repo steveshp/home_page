@@ -2,15 +2,15 @@
 
 import { useState, useEffect } from "react"
 import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth"
-import { collection, addDoc, query, where, getDocs, Timestamp, deleteDoc, doc } from "firebase/firestore"
-import { auth, db } from "@/lib/firebase"
+import { ref, push, onValue, remove, query, orderByChild, equalTo } from "firebase/database"
+import { auth, database } from "@/lib/firebase"
 import { Button } from "@/components/ui/button"
 import { LogOut, Plus, Trash2, User } from "lucide-react"
 
 interface Referral {
   id: string
   name: string
-  createdAt: Date
+  createdAt: number
 }
 
 export default function RecommendationsPage() {
@@ -32,8 +32,8 @@ export default function RecommendationsPage() {
       if (user) {
         setIsAuthenticated(true)
         setUserId(user.uid)
-        // 기존 추천인 목록 불러오기
-        await loadReferrals(user.uid)
+        // 기존 추천인 목록 실시간 구독
+        loadReferrals(user.uid)
       } else {
         setIsAuthenticated(false)
         setUserId("")
@@ -44,31 +44,30 @@ export default function RecommendationsPage() {
     return () => unsubscribe()
   }, [])
 
-  // 추천인 목록 불러오기
-  const loadReferrals = async (uid: string) => {
-    try {
-      const q = query(
-        collection(db, "referrals"),
-        where("userId", "==", uid)
-      )
-      const querySnapshot = await getDocs(q)
+  // 추천인 목록 실시간 구독
+  const loadReferrals = (uid: string) => {
+    const referralsRef = ref(database, 'referrals')
+
+    onValue(referralsRef, (snapshot) => {
+      const data = snapshot.val()
       const loadedReferrals: Referral[] = []
 
-      querySnapshot.forEach((doc) => {
-        const data = doc.data()
-        loadedReferrals.push({
-          id: doc.id,
-          name: data.name,
-          createdAt: data.createdAt?.toDate() || new Date()
+      if (data) {
+        Object.keys(data).forEach((key) => {
+          if (data[key].userId === uid) {
+            loadedReferrals.push({
+              id: key,
+              name: data[key].name,
+              createdAt: data[key].createdAt || Date.now()
+            })
+          }
         })
-      })
+      }
 
       // 최신순으로 정렬
-      loadedReferrals.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+      loadedReferrals.sort((a, b) => b.createdAt - a.createdAt)
       setReferrals(loadedReferrals)
-    } catch (err) {
-      console.error("Error loading referrals:", err)
-    }
+    })
   }
 
   // 추천인 추가
@@ -78,21 +77,12 @@ export default function RecommendationsPage() {
 
     setAddingReferral(true)
     try {
-      const docRef = await addDoc(collection(db, "referrals"), {
+      const referralsRef = ref(database, 'referrals')
+      await push(referralsRef, {
         userId: userId,
         name: newReferralName.trim(),
-        createdAt: Timestamp.now()
+        createdAt: Date.now()
       })
-
-      // 로컬 상태 업데이트
-      setReferrals([
-        {
-          id: docRef.id,
-          name: newReferralName.trim(),
-          createdAt: new Date()
-        },
-        ...referrals
-      ])
 
       setNewReferralName("")
     } catch (err) {
@@ -108,8 +98,8 @@ export default function RecommendationsPage() {
     if (!confirm("정말 삭제하시겠습니까?")) return
 
     try {
-      await deleteDoc(doc(db, "referrals", id))
-      setReferrals(referrals.filter(r => r.id !== id))
+      const referralRef = ref(database, `referrals/${id}`)
+      await remove(referralRef)
     } catch (err) {
       console.error("Error deleting referral:", err)
       alert("삭제에 실패했습니다.")
@@ -227,7 +217,7 @@ export default function RecommendationsPage() {
                       <div>
                         <p className="font-semibold">{referral.name}</p>
                         <p className="text-xs text-muted-foreground">
-                          {referral.createdAt.toLocaleDateString('ko-KR', {
+                          {new Date(referral.createdAt).toLocaleDateString('ko-KR', {
                             year: 'numeric',
                             month: 'long',
                             day: 'numeric',
