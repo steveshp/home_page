@@ -311,9 +311,9 @@ export default function RecommendationsPage() {
           </Button>
         </form>
 
-        <div className="text-center text-sm text-muted-foreground">
+        {/* <div className="text-center text-sm text-muted-foreground">
           <p>Firebase Authentication을 사용합니다</p>
-        </div>
+        </div> */}
       </div>
     </div>
   )
